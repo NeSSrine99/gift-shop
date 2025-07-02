@@ -1,5 +1,3 @@
-// src/data/services.js
-
 const services = [
   {
     id: 1,

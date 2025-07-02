@@ -6,6 +6,20 @@ import { MdOutlineShoppingBag } from "react-icons/md";
 import { FaRegUserCircle } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
+import { motion, AnimatePresence } from "framer-motion";
+
+const mobileMenuVariants = {
+  hidden: {
+    height: 0,
+    opacity: 0,
+    transition: { duration: 0.3, ease: "easeInOut" },
+  },
+  visible: {
+    height: "auto",
+    opacity: 1,
+    transition: { duration: 0.3, ease: "easeInOut" },
+  },
+};
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -41,27 +55,49 @@ const Header = () => {
         </Link>
       </nav>
 
-      {/* Mobile Navigation */}
-      <div
-        className={`md:hidden absolute top-full left-0 w-full bg-white shadow-xl overflow-hidden transform transition-all duration-300 ease-in-out ${
-          isMenuOpen ? "max-h-60 opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
-        <nav className="flex flex-col p-4 space-y-3">
-          <Link href="/" className="text-gray-500 hover:text-gray-700">
-            Home
-          </Link>
-          <Link href="/about" className="text-gray-500 hover:text-gray-700">
-            About Us
-          </Link>
-          <Link href="/shop" className="text-gray-500 hover:text-gray-700">
-            Shop
-          </Link>
-          <Link href="/contact" className="text-gray-500 hover:text-gray-700">
-            Contact
-          </Link>
-        </nav>
-      </div>
+      {/* Mobile Navigation with animation */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.nav
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={mobileMenuVariants}
+            className="md:hidden absolute top-full left-0 w-full bg-white shadow-xl overflow-hidden"
+          >
+            <div className="flex flex-col p-4 space-y-3">
+              <Link
+                href="/"
+                className="text-gray-500 hover:text-gray-700"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Home
+              </Link>
+              <Link
+                href="/about"
+                className="text-gray-500 hover:text-gray-700"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                About Us
+              </Link>
+              <Link
+                href="/shop"
+                className="text-gray-500 hover:text-gray-700"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Shop
+              </Link>
+              <Link
+                href="/contact"
+                className="text-gray-500 hover:text-gray-700"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Contact
+              </Link>
+            </div>
+          </motion.nav>
+        )}
+      </AnimatePresence>
 
       {/* User and Toggle Menu */}
       <section className="flex items-center gap-4">
@@ -75,6 +111,7 @@ const Header = () => {
           <button
             onClick={toggleMenu}
             className="text-gray-500 hover:text-gray-700 focus:outline-none border border-gray-100 shadow bg-section p-1 rounded"
+            aria-label="Toggle Menu"
           >
             {isMenuOpen ? (
               <IoClose className="w-6 h-6" />

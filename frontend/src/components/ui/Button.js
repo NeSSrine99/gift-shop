@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import React from "react";
+import { motion } from "framer-motion";
 
 const Button = ({
   children,
@@ -12,7 +13,7 @@ const Button = ({
   ...props
 }) => {
   const baseStyles =
-    "rounded-br-xl rounded-tl-xl font-medium transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2";
+    "rounded-br-xl rounded-tl-xl font-medium transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white shadow-sm";
 
   const sizeStyles = {
     sm: "px-3 py-1 text-sm",
@@ -30,7 +31,7 @@ const Button = ({
   };
 
   return (
-    <button
+    <motion.button
       type={type}
       onClick={onClick}
       disabled={disabled}
@@ -41,10 +42,15 @@ const Button = ({
         disabled && "opacity-50 cursor-not-allowed",
         className
       )}
+      whileHover={{
+        scale: disabled ? 1 : 1.05,
+        boxShadow: disabled ? "none" : "0 4px 12px rgba(0,0,0,0.15)",
+      }}
+      whileTap={{ scale: disabled ? 1 : 0.95 }}
       {...props}
     >
       {children}
-    </button>
+    </motion.button>
   );
 };
 
