@@ -5,6 +5,7 @@
   --secondary: #b7bd8f;
   --bg: #fef2fe;
   --section: #e4d6cd;
+  --gradient-primary: conic-gradient(from 180deg, #4f46e5, #eef2ff, #4f46e5);
 }
 
 @theme inline {
@@ -14,6 +15,10 @@
   --color-secondary: var(--secondary);
   --color-section: var(--section);
   --color-bg: var(--bg);
+  --color-gradient: var(--gradient-primary);
+}
+.bg-gradient {
+  background: var(--gradient-primary);
 }
 
 @media (prefers-color-scheme: dark) {

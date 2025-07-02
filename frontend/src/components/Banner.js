@@ -7,7 +7,7 @@ const Banner = () => {
     <main className="bg-bg py-20 lg:px-[120px] sm:px-9 px-4 flex flex-col lg:flex-row items-center justify-center lg:justify-between gap-10">
       {/* Text Section */}
       <section className="max-w-[519px] flex flex-col items-center lg:items-start justify-center gap-4 text-center lg:text-left">
-        <div className="text-primary text-5xl font-bold font-playFair">
+        <div className="text-primary text-5xl font-bold font-playFair font-['Playfair']">
           Crafted for Your Special Moments
         </div>
         <div className="text-black text-lg font-medium">
@@ -25,9 +25,8 @@ const Banner = () => {
         <Image
           src="/images/banner.png"
           alt="Banner Image"
-          layout="responsive"
-          width={700}
-          height={475}
+          width={500}
+          height={390}
         />
       </section>
     </main>
