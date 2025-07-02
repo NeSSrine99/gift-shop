@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "customization_requests",
+  "info": {
+    "singularName": "customization-request",
+    "pluralName": "customization-requests",
+    "displayName": "Customization Request"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "phone": {
+      "type": "biginteger"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "description": {
+      "type": "blocks"
+    },
+    "event_type": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::event-type.event-type",
+      "inversedBy": "customization_requests"
+    },
+    "product_type": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product-type.product-type",
+      "inversedBy": "customization_requests"
+    },
+    "customerStatus": {
+      "type": "enumeration",
+      "enum": [
+        "new",
+        "in progress",
+        "done"
+      ]
+    }
+  }
+}

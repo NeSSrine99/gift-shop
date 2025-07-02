@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "event_types",
+  "info": {
+    "singularName": "event-type",
+    "pluralName": "event-types",
+    "displayName": "Event Type"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product",
+      "mappedBy": "event_type"
+    },
+    "customization_requests": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::customization-request.customization-request",
+      "mappedBy": "event_type"
+    }
+  }
+}
