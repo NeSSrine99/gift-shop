@@ -7,7 +7,7 @@ const ServiceCard = ({
 }) => {
   return (
     <div
-      className="flex flex-col gap-4 border-1 border-gray-50 rounded-lg p-4 shadow-md
+      className="bg-white flex flex-col gap-4 border-1 border-gray-50 rounded-lg p-4 shadow-md
       hover:bg-gradient-to-r hover:from-primary hover:to-secondary
       transition-colors duration-300"
     >
