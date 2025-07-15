@@ -9,13 +9,13 @@ const services = [
     id: 2,
     title: "Personalized Just for You",
     description:
-      "Customize your gifts with names, messages, or special designs to make every moment unforgettable.",
+      "Each product is uniquely handmade, ensuring quality, care, and a personal touch in every gift.",
   },
   {
     id: 3,
     title: "Eco-Friendly Packaging",
     description:
-      "We use sustainable materials to wrap and deliver your gifts beautifully and responsibly.",
+      "Each product is uniquely handmade, ensuring quality, care, and a personal touch in every gift.",
   },
 ];
 
