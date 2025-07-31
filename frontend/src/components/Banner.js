@@ -4,6 +4,7 @@ import React from "react";
 import Button from "./ui/Button";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const containerVariant = {
   hidden: {},
@@ -51,7 +52,9 @@ const Banner = () => {
           className="flex items-center justify-center sm:gap-4 gap-2 mt-6 flex-wrap"
           variants={itemVariant}
         >
-          <Button>Shop Now</Button>
+          <Link href="/shop">
+            <Button>Shop Now</Button>
+          </Link>
           <Button variant="outline">Customize Your Gift</Button>
         </motion.div>
       </motion.section>
