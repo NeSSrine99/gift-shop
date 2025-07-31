@@ -1,6 +1,7 @@
-import classNames from "classnames";
+"use client";
 import React from "react";
-import { motion } from "framer-motion";
+import classNames from "classnames";
+import { motion } from "framer-motion"; // ✅ فقط ما تحتاجينه
 
 const Button = ({
   children,

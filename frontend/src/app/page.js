@@ -5,16 +5,14 @@ import Gallery from "@/components/Gallery";
 import PopularProducts from "@/components/PopularProduct";
 import ProductCard from "@/components/ui/ProductCard";
 import WhyChooseUs from "@/components/WhyChooseUs";
-import Image from "next/image";
 
 export default function Home() {
   return (
     <main>
       <Banner />
-      {/* <ProductCard /> */}
-      {/* <PopularProducts /> */}
       <Categories />
       <WhyChooseUs />
+      <PopularProducts />
       <Gallery />
       <Contact />
     </main>

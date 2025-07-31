@@ -1,13 +1,16 @@
 import React from "react";
 import Favorite from "./Favorite";
+import Button from "./Button";
+import { FaCartPlus } from "react-icons/fa";
 
 function ProductCard({ product }) {
-  const baseURL = "http://localhost:1337";
+  const baseURL =
+    process.env.NEXT_PUBLIC_STRAPI_API_URL?.replace("/api", "") ||
+    "http://localhost:1337";
 
-  const imageUrl = product?.image?.url
-    ? `${baseURL}${product.image.url}`
+  const imageUrl = product?.image?.[0]?.url
+    ? `${baseURL}${product.image[0].url}`
     : "/images/wedding.jpeg";
-
   return (
     <div className="border-2 border-primary w-[270px] hover:shadow-md p-2 hover:cursor-pointer rounded-lg transition-all duration-300 hover:scale-110">
       <div className="relative">
@@ -20,16 +23,21 @@ function ProductCard({ product }) {
           <Favorite />
         </div>
       </div>
-      <div className="p-3 rounded-b-lg">
+      <div className=" rounded-b-lg space-y-2 mt-2">
         <div className="flex flex-wrap items-center justify-between ">
           <h2 className=" ">{product?.name || "Unknown Product"}</h2>
           <p className="text-[14px] text-gray-500">
-            {product?.product_type || "no category"}{" "}
+            {product?.event_type?.name || "no category"}{" "}
           </p>
         </div>
-        <h2 className="text-gray-600 flex gap-1 items-center">
-          ${product?.price || "0.00"}
-        </h2>
+        <div className="flex items-center justify-between">
+          <h2 className="text-gray-600 flex gap-1 items-center">
+            ${product?.price || "0.00"}
+          </h2>
+          <Button className="cursor-pointer">
+            <FaCartPlus />{" "}
+          </Button>
+        </div>
       </div>
     </div>
   );
