@@ -12,7 +12,7 @@ export default async function ProductsPage() {
       <ul className="flex flex-wrap items-center justify-center gap-5">
         {products.map((product) => (
           <li key={product.id}>
-            <Link href={`/products/${product.id}`}>
+            <Link href={`/shop/${product.slug}`}>
               <ProductCard product={product} />
             </Link>
           </li>

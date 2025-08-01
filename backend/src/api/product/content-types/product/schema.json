@@ -46,6 +46,11 @@
       "relation": "manyToOne",
       "target": "api::product-type.product-type",
       "inversedBy": "products"
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "name",
+      "required": true
     }
   }
 }

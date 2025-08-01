@@ -4,7 +4,8 @@
   "info": {
     "singularName": "customization-request",
     "pluralName": "customization-requests",
-    "displayName": "Customization Request"
+    "displayName": "Customization Request",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -21,17 +22,15 @@
       "type": "biginteger"
     },
     "image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": true
-    },
-    "description": {
-      "type": "blocks"
+      ]
     },
     "event_type": {
       "type": "relation",
@@ -52,6 +51,9 @@
         "in progress",
         "done"
       ]
+    },
+    "description": {
+      "type": "text"
     }
   }
 }

@@ -373,6 +373,7 @@ export interface ApiCustomizationRequestCustomizationRequest
   extends Struct.CollectionTypeSchema {
   collectionName: 'customization_requests';
   info: {
+    description: '';
     displayName: 'Customization Request';
     pluralName: 'customization-requests';
     singularName: 'customization-request';
@@ -387,7 +388,7 @@ export interface ApiCustomizationRequestCustomizationRequest
     customerStatus: Schema.Attribute.Enumeration<
       ['new', 'in progress', 'done']
     >;
-    description: Schema.Attribute.Blocks;
+    description: Schema.Attribute.Text;
     email: Schema.Attribute.Email;
     event_type: Schema.Attribute.Relation<
       'manyToOne',
@@ -553,6 +554,7 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
       'api::product-type.product-type'
     >;
     publishedAt: Schema.Attribute.DateTime;
+    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
