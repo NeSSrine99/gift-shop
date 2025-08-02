@@ -113,7 +113,7 @@ export default function ProductForm({
             <option value="">Select product type</option>
             {productTypes.map((pt) => (
               <option key={pt.id} value={pt.id}>
-                {pt.attributes.name}
+                {pt.name}
               </option>
             ))}
           </select>

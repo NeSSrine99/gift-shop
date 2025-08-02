@@ -32,7 +32,9 @@ export default function ProductsPage() {
 
   const fetchProducts = async () => {
     try {
-      const res = await api.get("/products?populate=image");
+      const res = await api.get(
+        "/products?populate[0]=image&populate[1]=event_type&populate[2]=product_type"
+      );
 
       console.log("API response:", res.data);
 
@@ -43,23 +45,29 @@ export default function ProductsPage() {
             : null;
 
         return {
-          id: item.documentId,
+          id: item.documentId || item.id,
           name: item.name || "No name",
           description:
             Array.isArray(item.description) && item.description.length > 0
               ? item.description
                   .map((block) =>
-                    block.children.map((child) => child.text).join("")
+                    block.children?.map((child) => child.text).join("")
                   )
                   .join("\n")
-              : "",
+              : item.description || "",
+
           price: item.price || 0,
           available: item.available || false,
-          event_type_name: "-",
-          product_type_id: null,
-          product_type_name: "-",
-          image: firstImage ? "http://localhost:1337" + firstImage.url : "",
           quantity: item.quantity || 0,
+
+          event_type: item.event_type || null,
+          product_type: item.product_type || null,
+
+          image: firstImage
+            ? firstImage.url.startsWith("http")
+              ? firstImage.url
+              : `http://localhost:1337${firstImage.url}`
+            : "",
         };
       });
 
@@ -84,7 +92,7 @@ export default function ProductsPage() {
       const res = await api.get("/product-types");
       const formatted = res.data.data.map((item) => ({
         id: item.id,
-        name: item.attributes.name,
+        name: item.name,
       }));
       setProductTypes(formatted);
     } catch (err) {
@@ -108,13 +116,11 @@ export default function ProductsPage() {
   };
 
   const openEditModal = (product) => {
-    console.log("Editing product:", product);
-
-    if (!product?.id) {
-      console.error("Product has no valid ID for editing");
-      return;
-    }
-    setNewProduct(product);
+    setNewProduct({
+      ...product,
+      event_type_id: product.event_type?.id || null,
+      product_type_id: product.product_type?.id || null,
+    });
     setEditingProductId(product.id);
     setShowModal(true);
   };
@@ -135,37 +141,36 @@ export default function ProductsPage() {
 
   const handleSaveProduct = async () => {
     try {
-      let imageId = null;
-
-      if (newProduct.file) {
-        const formData = new FormData();
-        formData.append("files", newProduct.file);
-        const uploadRes = await api.post("/upload", formData);
-        imageId = uploadRes.data[0]?.id;
+      if (!newProduct.name || !newProduct.price) {
+        alert("Name and price are required.");
+        return;
       }
 
-      const parsedDescription =
-        typeof newProduct.description === "string"
-          ? [
-              {
-                type: "paragraph",
-                children: [{ type: "text", text: newProduct.description }],
-              },
-            ]
-          : newProduct.description;
+      let imageId = null;
+
+      if (newImageFile) {
+        const uploaded = await uploadImage(newImageFile);
+        imageId = uploaded.id;
+      } else if (existingImageId) {
+        imageId = existingImageId;
+      }
 
       const data = {
         name: newProduct.name,
-        description: parsedDescription,
+        slug: newProduct.name.toLowerCase().replace(/\s+/g, "-"),
         price: parseFloat(newProduct.price),
-        available: newProduct.available,
-        event_type: newProduct.event_type_id,
-        product_type: newProduct.product_type_id,
-        image: imageId ? [imageId] : [],
+        description: newProduct.description || "",
+        available: Boolean(newProduct.available),
+        image: imageId,
+        event_type: newProduct.event_type_id
+          ? { connect: [{ id: parseInt(newProduct.event_type_id) }] }
+          : undefined,
+        product_type: newProduct.product_type_id
+          ? { connect: [{ id: parseInt(newProduct.product_type_id) }] }
+          : undefined,
       };
 
-      console.log("Data to send:", JSON.stringify(data, null, 2));
-      console.log("Editing product ID:", editingProductId);
+      console.log("✅ Data sent to Strapi:", JSON.stringify({ data }, null, 2));
 
       if (editingProductId) {
         await api.put(`/products/${editingProductId}`, { data });
@@ -176,7 +181,17 @@ export default function ProductsPage() {
       setShowModal(false);
       fetchProducts();
     } catch (err) {
-      console.error("Full error saving product:", err);
+      console.error("🚨 Full error:", err);
+      if (err.response?.data?.error) {
+        console.error(
+          "📛 Strapi Error:",
+          JSON.stringify(err.response.data.error, null, 2)
+        );
+      } else {
+        console.error("📛 Unknown error:", err);
+      }
+
+      alert("Failed to save product. Check console.");
     }
   };
 

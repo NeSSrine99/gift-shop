@@ -13,8 +13,8 @@ export default function ProductRow({ product, onEdit, onDelete }) {
         )}
       </td>
       <td className="px-4 py-3">{product.name}</td>
-      <td className="px-4 py-3">{product.event_type_name || "-"}</td>
-      <td className="px-4 py-3">{product.product_type_name || "-"}</td>
+      <td className="px-4 py-3">{product?.event_type?.name || "-"}</td>
+      <td className="px-4 py-3">{product?.product_type?.name || "-"}</td>
       <td className="px-4 py-3">{product.price}</td>
       <td className="px-4 py-3 hidden md:table-cell">
         {product.quantity || "-"}
