@@ -420,6 +420,7 @@ export interface ApiCustomizationRequestCustomizationRequest
 export interface ApiEventTypeEventType extends Struct.CollectionTypeSchema {
   collectionName: 'event_types';
   info: {
+    description: '';
     displayName: 'Event Type';
     pluralName: 'event-types';
     singularName: 'event-type';
@@ -435,6 +436,7 @@ export interface ApiEventTypeEventType extends Struct.CollectionTypeSchema {
       'oneToMany',
       'api::customization-request.customization-request'
     >;
+    image: Schema.Attribute.Media<'images' | 'files'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',

@@ -12,7 +12,7 @@ function ProductCard({ product }) {
     ? `${baseURL}${product.image[0].url}`
     : "/images/wedding.jpeg";
   return (
-    <div className="border-2 border-primary w-[270px] hover:shadow-md p-2 hover:cursor-pointer rounded-lg transition-all duration-300 hover:scale-110">
+    <div className="bg-white border-2 border-primary w-[270px] hover:shadow-md p-2 hover:cursor-pointer rounded-lg transition-all duration-300 hover:scale-110">
       <div className="relative">
         <img
           src={imageUrl}

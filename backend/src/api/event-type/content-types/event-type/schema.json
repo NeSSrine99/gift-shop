@@ -4,7 +4,8 @@
   "info": {
     "singularName": "event-type",
     "pluralName": "event-types",
-    "displayName": "Event Type"
+    "displayName": "Event Type",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -25,6 +26,14 @@
       "relation": "oneToMany",
       "target": "api::customization-request.customization-request",
       "mappedBy": "event_type"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

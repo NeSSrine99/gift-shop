@@ -148,11 +148,11 @@ export default function ProductsPage() {
 
       let imageId = null;
 
-      if (newImageFile) {
-        const uploaded = await uploadImage(newImageFile);
-        imageId = uploaded.id;
-      } else if (existingImageId) {
-        imageId = existingImageId;
+      if (newProduct.file) {
+        const formData = new FormData();
+        formData.append("files", newProduct.file);
+        const uploadRes = await api.post("/upload", formData);
+        imageId = uploadRes.data[0]?.id;
       }
 
       const data = {

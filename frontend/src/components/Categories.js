@@ -1,8 +1,26 @@
-import React from "react";
+// components/Categories.js
+"use client";
+
+import React, { useEffect, useState } from "react";
 import CategoryCard from "./ui/CategoryCard";
-import categories from "@/data/categories";
+import axios from "axios";
 
 const Categories = () => {
+  const [eventTypes, setEventTypes] = useState([]);
+
+  useEffect(() => {
+    const fetchEventTypes = async () => {
+      try {
+        const res = await axios.get("http://localhost:1337/api/event-types");
+        setEventTypes(res.data.data);
+      } catch (error) {
+        console.error("❌ Failed to fetch event types:", error);
+      }
+    };
+
+    fetchEventTypes();
+  }, []);
+
   return (
     <section className="flex flex-col gap-10 py-20 lg:px-[120px] sm:px-9 px-4">
       <div className="mb-8 text-center">
@@ -12,12 +30,14 @@ const Categories = () => {
         </p>
       </div>
       <div className="flex flex-wrap justify-center gap-6">
-        {categories.map((category) => (
+        {eventTypes.map((event) => (
           <CategoryCard
-            key={category.id}
-            id={category.id}
-            title={category.title}
-            image={category.image}
+            key={event.id}
+            id={event.id}
+            name={event.name}
+            image={`http://localhost:1337${
+              event.image?.data?.url || "/placeholder.jpg"
+            }`}
           />
         ))}
       </div>
