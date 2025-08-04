@@ -5,7 +5,7 @@ import axios from "axios";
 
 export default function CustomizePage() {
   const [form, setForm] = useState({
-    full_name: "",
+    name: "",
     email: "",
     phone: "",
     event_type: "",
@@ -44,7 +44,17 @@ export default function CustomizePage() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setForm({ ...form, [name]: type === "checkbox" ? checked : value });
+
+    const isRelation = name === "event_type" || name === "product_type";
+
+    setForm({
+      ...form,
+      [name]: isRelation
+        ? Number(value)
+        : type === "checkbox"
+        ? checked
+        : value,
+    });
   };
 
   const handleImageChange = (e) => {
@@ -66,17 +76,34 @@ export default function CustomizePage() {
 
         const uploadRes = await axios.post(
           "http://localhost:1337/api/upload",
-          imageData
+          imageData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
         );
+
         imageId = uploadRes.data[0].id;
       }
+      console.log("Sending to Strapi:", {
+        name: form.name,
+        event_type: form.event_type,
+        product_type: form.product_type,
+      });
 
       await axios.post("http://localhost:1337/api/customization-requests", {
         data: {
-          ...form,
-          event_type: Number(form.event_type),
-          product_type: Number(form.product_type),
-          reference_image: imageId ? [imageId] : [],
+          name: form.name,
+          email: form.email,
+          phone: form.phone,
+          quantity: Number(form.quantity),
+          date: form.date,
+          wrapping: Boolean(form.wrapping),
+          message: form.message,
+          event_type: form.event_type,
+          product_type: form.product_type,
+          image: imageId ? [imageId] : [],
         },
       });
 
@@ -84,7 +111,7 @@ export default function CustomizePage() {
         "Your request has been sent successfully! We will contact you soon."
       );
       setForm({
-        full_name: "",
+        name: "",
         email: "",
         phone: "",
         event_type: "",
@@ -102,6 +129,7 @@ export default function CustomizePage() {
     } finally {
       setLoading(false);
     }
+    console.log("Form values before send:", form);
   };
 
   return (
@@ -115,10 +143,10 @@ export default function CustomizePage() {
           <h2 className="text-xl font-semibold">🧍 Customer Info</h2>
           <input
             type="text"
-            name="full_name"
-            placeholder="Full Name"
+            name="name"
+            placeholder="Name"
             className="w-full border p-2 rounded"
-            value={form.full_name}
+            value={form.name}
             onChange={handleChange}
             required
           />
