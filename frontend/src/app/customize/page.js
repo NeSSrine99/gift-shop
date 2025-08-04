@@ -35,7 +35,7 @@ export default function CustomizePage() {
         setEventTypes(eventRes.data.data);
         setProductTypes(productRes.data.data);
       } catch (error) {
-        console.error("فشل في تحميل بيانات التصنيفات:", error);
+        console.error("Failed to load category data:", error);
       }
     };
 
@@ -58,7 +58,6 @@ export default function CustomizePage() {
     setLoading(true);
 
     try {
-      // رفع الصورة إذا كانت موجودة
       let imageId = null;
 
       if (imageFile) {
@@ -72,7 +71,6 @@ export default function CustomizePage() {
         imageId = uploadRes.data[0].id;
       }
 
-      // إرسال الطلب
       await axios.post("http://localhost:1337/api/customization-requests", {
         data: {
           ...form,
@@ -82,7 +80,9 @@ export default function CustomizePage() {
         },
       });
 
-      setSuccessMsg("تم إرسال طلبك بنجاح! سنتواصل معك قريبًا.");
+      setSuccessMsg(
+        "Your request has been sent successfully! We will contact you soon."
+      );
       setForm({
         full_name: "",
         email: "",
@@ -97,8 +97,8 @@ export default function CustomizePage() {
       setImageFile(null);
       setPreview(null);
     } catch (err) {
-      console.error("❌ خطأ أثناء الإرسال:", err);
-      alert("حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقًا.");
+      console.error("Error while sending:", err);
+      alert("An error occurred while sending, please try again later.");
     } finally {
       setLoading(false);
     }
@@ -111,7 +111,6 @@ export default function CustomizePage() {
       </h1>
 
       <form onSubmit={handleSubmit} className="grid md:grid-cols-3 gap-6">
-        {/* معلومات العميل */}
         <div className="space-y-4">
           <h2 className="text-xl font-semibold">🧍 Customer Info</h2>
           <input
@@ -143,7 +142,6 @@ export default function CustomizePage() {
           />
         </div>
 
-        {/* تفاصيل الطلب */}
         <div className="space-y-4">
           <h2 className="text-xl font-semibold">🎁 Gift Details</h2>
 
@@ -216,7 +214,6 @@ export default function CustomizePage() {
           ></textarea>
         </div>
 
-        {/* صورة تقريبية */}
         <div className="space-y-4">
           <h2 className="text-xl font-semibold">🖼️ Reference Image</h2>
           <input type="file" onChange={handleImageChange} accept="image/*" />
@@ -229,7 +226,6 @@ export default function CustomizePage() {
           )}
         </div>
 
-        {/* زر الإرسال */}
         <div className="md:col-span-3 mt-6 text-center">
           <button
             type="submit"
