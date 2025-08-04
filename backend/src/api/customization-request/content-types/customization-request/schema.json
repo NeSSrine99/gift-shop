@@ -47,12 +47,26 @@
     "customerStatus": {
       "type": "enumeration",
       "enum": [
-        "new",
-        "in progress",
-        "done"
+        "Pending",
+        "Reviewed",
+        "Contacted",
+        "Confirmed",
+        "Rejected"
       ]
     },
     "description": {
+      "type": "text"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "date": {
+      "type": "datetime"
+    },
+    "wrapping": {
+      "type": "boolean"
+    },
+    "message": {
       "type": "text"
     }
   }

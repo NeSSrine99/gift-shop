@@ -54,7 +54,7 @@ export default function ProductsPage() {
   }, [selectedEventType, selectedProductType]);
 
   return (
-    <div className="flex flex-col items-center gap-6 ">
+    <div className="flex flex-col items-center gap-6 pb-20 bg-bg">
       <Breadcrumb items={[{ href: "/" }, { label: "Shop" }]} />
 
       <FilterBar

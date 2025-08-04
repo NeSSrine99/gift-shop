@@ -1,4 +1,3 @@
-// components/ui/CategoryCard.js
 "use client";
 
 import React from "react";
@@ -14,7 +13,7 @@ const CategoryCard = ({ name = "title", image }) => {
   const imageUrl = image?.startsWith("http") ? image : `${STRAPI_URL}${image}`;
 
   const handleClick = () => {
-    router.push(`/shop?event_types=${name}`);
+    router.push(`/shop?event_type=${name}`);
   };
 
   return (

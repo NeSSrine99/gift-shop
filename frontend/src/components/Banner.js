@@ -55,7 +55,9 @@ const Banner = () => {
           <Link href="/shop">
             <Button>Shop Now</Button>
           </Link>
-          <Button variant="outline">Customize Your Gift</Button>
+          <Link href="/customize">
+            <Button variant="outline">Customize Your Gift</Button>
+          </Link>
         </motion.div>
       </motion.section>
 

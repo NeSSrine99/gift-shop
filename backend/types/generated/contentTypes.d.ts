@@ -386,8 +386,9 @@ export interface ApiCustomizationRequestCustomizationRequest
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     customerStatus: Schema.Attribute.Enumeration<
-      ['new', 'in progress', 'done']
+      ['Pending', 'Reviewed', 'Contacted', 'Confirmed', 'Rejected']
     >;
+    date: Schema.Attribute.DateTime;
     description: Schema.Attribute.Text;
     email: Schema.Attribute.Email;
     event_type: Schema.Attribute.Relation<
@@ -404,6 +405,7 @@ export interface ApiCustomizationRequestCustomizationRequest
       'api::customization-request.customization-request'
     > &
       Schema.Attribute.Private;
+    message: Schema.Attribute.Text;
     name: Schema.Attribute.String;
     phone: Schema.Attribute.BigInteger;
     product_type: Schema.Attribute.Relation<
@@ -411,9 +413,11 @@ export interface ApiCustomizationRequestCustomizationRequest
       'api::product-type.product-type'
     >;
     publishedAt: Schema.Attribute.DateTime;
+    quantity: Schema.Attribute.Integer;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    wrapping: Schema.Attribute.Boolean;
   };
 }
 
