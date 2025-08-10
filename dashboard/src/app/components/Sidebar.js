@@ -4,40 +4,46 @@
 import Link from "next/link";
 import { useState } from "react";
 import {
-  LayoutDashboard,
-  Package,
-  ShoppingCart,
-  Settings,
-  List,
-  Menu,
-} from "lucide-react";
+  FiMenu,
+  FiSettings,
+  FiShoppingCart,
+  FiPackage,
+  FiList,
+  FiLayout,
+} from "react-icons/fi";
+import { RiCustomerServiceFill } from "react-icons/ri";
 import Image from "next/image";
 
 const navLinks = [
   {
     name: "Dashboard",
     href: "/",
-    icon: <LayoutDashboard size={20} />,
+    icon: <FiLayout size={20} />,
   },
   {
     name: "Products",
     href: "/products",
-    icon: <Package size={20} />,
+    icon: <FiPackage size={20} />,
   },
   {
     name: "Orders",
     href: "/orders",
-    icon: <ShoppingCart size={20} />,
+    icon: <FiShoppingCart size={20} />,
   },
   {
     name: "Categories",
     href: "/categories",
-    icon: <List size={20} />,
+    icon: <FiList size={20} />,
+  },
+  {
+    name: "Customization",
+    href: "/customization-requests",
+    icon: <RiCustomerServiceFill size={20} />,
   },
   {
     name: "Settings",
     href: "/settings",
-    icon: <Settings size={20} />,
+    icon: <FiSettings size={20} />,
   },
 ];
 
@@ -47,7 +53,7 @@ export default function Sidebar() {
   return (
     <aside
       className={`h-full bg-gray-100 border-r transition-all duration-300 ${
-        isOpen ? "w-64" : "sm:w-20 w-16 p-3 "
+        isOpen ? "w-64" : "sm:w-20 w-16 p-3"
       }`}
     >
       <div className="flex items-center justify-between p-4">
@@ -62,7 +68,7 @@ export default function Sidebar() {
           onClick={() => setIsOpen(!isOpen)}
           className="text-gray-600 hover:text-purple-600"
         >
-          <Menu size={24} />
+          <FiMenu size={24} />
         </button>
       </div>
 
