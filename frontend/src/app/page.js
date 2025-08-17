@@ -3,7 +3,8 @@ import Categories from "@/components/Categories";
 import Contact from "@/components/Contact";
 import Gallery from "@/components/Gallery";
 import PopularProducts from "@/components/PopularProduct";
-import ProductCard from "@/components/ui/ProductCard";
+import ShoppingCart from "@/components/shoppingCart";
+
 import WhyChooseUs from "@/components/WhyChooseUs";
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
       <WhyChooseUs />
       <PopularProducts />
       <Gallery />
+      <ShoppingCart />
       <Contact />
     </main>
   );

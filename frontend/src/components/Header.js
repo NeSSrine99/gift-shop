@@ -7,6 +7,9 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { FiMenu } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
+import CartIcon from "./ui/CartShoppingIcon";
+import Button from "./ui/Button";
+import ShoppingCart from "./shoppingCart";
 
 const mobileMenuVariants = {
   hidden: {
@@ -23,6 +26,7 @@ const mobileMenuVariants = {
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen((prev) => !prev);
 
@@ -102,8 +106,26 @@ const Header = () => {
       {/* User and Toggle Menu */}
       <section className="flex items-center gap-4">
         <div className="flex items-center space-x-4 text-primary">
-          <MdOutlineShoppingBag className="w-6 h-6" />
-          <FaRegUserCircle className="w-6 h-6" />
+          <button onClick={() => setIsCartOpen(!isCartOpen)}>
+            <CartIcon className="sm:relative w-5 h-5" />
+          </button>
+          <AnimatePresence>
+            {isCartOpen && (
+              <motion.div
+                key="cart"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="absolute top-16 sm:right-20 right-4 bg-white z-50 shadow-lg rounded-md"
+              >
+                <ShoppingCart />
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <button>
+            <FaRegUserCircle className="w-6 h-6" />
+          </button>
         </div>
 
         {/* Mobile Toggle Button */}

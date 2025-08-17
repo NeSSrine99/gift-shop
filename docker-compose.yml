@@ -1,0 +1,42 @@
+version: "3.8"
+
+services:
+  strapi:
+    build: ./strapi-backend
+    container_name: strapi
+    ports:
+      - "1337:1337"
+    volumes:
+      - ./strapi-backend:/app
+    environment:
+      DATABASE_CLIENT: sqlite
+    networks:
+      - app-network
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - strapi
+    environment:
+      NEXT_PUBLIC_API_URL: "http://strapi:1337"
+    networks:
+      - app-network
+
+  dashboard:
+    build: ./dashboard
+    container_name: dashboard
+    ports:
+      - "3001:3000"
+    depends_on:
+      - strapi
+    environment:
+      NEXT_PUBLIC_API_URL: "http://strapi:1337"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

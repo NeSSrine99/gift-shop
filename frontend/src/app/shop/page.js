@@ -69,9 +69,9 @@ export default function ProductsPage() {
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-8">
         {products.map((product) => (
           <li key={product.id}>
-            <Link href={`/shop/${product.slug}`}>
-              <ProductCard product={product} />
-            </Link>
+            {/* <Link href={`/shop/${product.slug}`}> */}
+            <ProductCard product={product} />
+            {/* </Link> */}
           </li>
         ))}
       </ul>

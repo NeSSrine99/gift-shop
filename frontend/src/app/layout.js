@@ -1,6 +1,7 @@
 import { Playfair, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
+import { CartProvider } from "@/context/CartContext";
 
 const playFair = Playfair({
   variable: "--font-playFair",
@@ -24,8 +25,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${playFair.variable} ${poppins.variable} antialiased`}>
-        <Header />
-        {children}
+        <CartProvider>
+          <Header />
+          {children}
+        </CartProvider>
       </body>
     </html>
   );
