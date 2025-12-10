@@ -114,7 +114,7 @@ export default function ShoppingCart() {
 
               {/* Checkout Button */}
               <div className="w-full">
-                <Link href="/panier" className="w-full">
+                <Link href="/checkout" className="w-full">
                   <Button variant="primary" className="w-full">
                     Checkout
                   </Button>
