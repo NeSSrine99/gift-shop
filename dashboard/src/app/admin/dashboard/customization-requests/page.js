@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../lib/api";
 import { FiUser, FiMail, FiChevronDown, FiChevronUp } from "react-icons/fi";
 
 export default function DashboardPage() {
@@ -11,12 +11,13 @@ export default function DashboardPage() {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const res = await axios.get(
-          "http://localhost:1337/api/customization-requests?populate[0]=image&populate[1]=event_type&populate[2]=product_type"
+        const res = await api.get(
+          "/customization-requests?populate=image,event_type,product_type",
         );
         setRequests(res.data.data);
+        console.log("Customization requests:", res.data.data);
       } catch (err) {
-        console.error("خطأ في تحميل الطلبات:", err);
+        console.error("errer fetching requests :", err.response?.data || err);
       }
     };
     fetchRequests();
@@ -24,7 +25,7 @@ export default function DashboardPage() {
 
   const toggleExpand = (id) => {
     setExpandedIds((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
     );
   };
 
@@ -44,16 +45,16 @@ export default function DashboardPage() {
               className="border rounded-lg p-4 shadow hover:bg-gray-50 transition cursor-pointer"
               onClick={() => toggleExpand(req.id)}
             >
-              {/* Header: Name & Email with icons */}
+              {/* Header: Name & Email */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-6">
                   <div className="flex items-center gap-2 text-primary font-semibold">
                     <FiUser size={20} />
-                    <span>{req.name}</span>
+                    <span>{req.attributes.name}</span>
                   </div>
                   <div className="flex items-center gap-2 text-secondary">
                     <FiMail size={18} />
-                    <span>{req.email}</span>
+                    <span>{req.attributes.email}</span>
                   </div>
                 </div>
 
@@ -70,33 +71,35 @@ export default function DashboardPage() {
               {isExpanded && (
                 <div className="mt-4 space-y-3 text-gray-700">
                   <p>
-                    <strong>Phone:</strong> {req.phone}
+                    <strong>Phone:</strong> {req.attributes.phone}
                   </p>
                   <p>
-                    <strong>Event:</strong> {req.event_type?.name}
+                    <strong>Event:</strong>{" "}
+                    {req.attributes.event_type?.data?.attributes?.name}
                   </p>
                   <p>
-                    <strong>Product:</strong> {req.product_type?.name}
+                    <strong>Product:</strong>{" "}
+                    {req.attributes.product_type?.data?.attributes?.name}
                   </p>
                   <p>
-                    <strong>Quantity:</strong> {req.quantity}
+                    <strong>Quantity:</strong> {req.attributes.quantity}
                   </p>
                   <p>
                     <strong>Delivery Date:</strong>{" "}
-                    {new Date(req.date).toLocaleDateString()}
+                    {new Date(req.attributes.date).toLocaleDateString()}
                   </p>
                   <p>
-                    <strong>Message:</strong> {req.message}
+                    <strong>Message:</strong> {req.attributes.message}
                   </p>
-                  {req.image && req.image.length > 0 && (
+                  {req.attributes.image?.data?.length > 0 && (
                     <img
-                      src={`http://localhost:1337${req.image[0].url}`}
+                      src={`http://localhost:1337/api${req.attributes.image.data[0].attributes.url}`}
                       alt="Preview"
                       className="w-40 rounded shadow mt-2"
                     />
                   )}
                   <p>
-                    <strong>Color:</strong> {req.color}
+                    <strong>Color:</strong> {req.attributes.color}
                   </p>
                 </div>
               )}

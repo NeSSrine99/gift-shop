@@ -6,5 +6,6 @@ const api = axios.create({
     Authorization: `Bearer ${process.env.NEXT_PUBLIC_STRAPI_DASHBOARD_TOKEN}`,
   },
 });
+console.log("BASE URL:", process.env.NEXT_PUBLIC_STRAPI_API_URL);
 
 export default api;
